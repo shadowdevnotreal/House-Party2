@@ -1,9 +1,29 @@
+# Core dependencies
 pycryptodome>=3.19.0
 requests>=2.31.0
 psutil>=5.9.0
 flask>=3.0.0
+
+# Tier 1 Cloud Platforms (Must Have)
 google-auth>=2.23.0
 google-auth-oauthlib>=1.1.0
 google-api-python-client>=2.100.0
 dropbox>=11.36.0
+onedrivesdk>=2.0.0
+msal>=1.24.0
+pyicloud>=1.0.0
+
+# Tier 2 Cloud Platforms (Should Have)
 boto3>=1.28.0
+mega.py>=1.0.8
+boxsdk>=3.9.0
+
+# Tier 3 Cloud Platforms (Nice to Have)
+webdavclient3>=3.14.6
+protonvpn-api>=3.13.0
+pcloud>=1.0a9
+b2sdk>=1.24.0
+
+# Optional dependencies for enhanced functionality
+qrcode>=7.4.2
+pillow>=10.0.0

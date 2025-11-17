@@ -1,17 +1,22 @@
 #!/usr/bin/python3
 
 """
-RWIPE v2.5 - TRUE Secure Deletion System
-CRITICAL UPDATE: Now performs ACTUAL secure deletion, not just encryption
+RWIPE v3.0 - TRUE Secure Deletion System + Multi-Cloud Support
+CRITICAL UPDATE: Now supports 12 cloud platforms for permanent deletion
 
 Original Concept: Utku Sen (Jani) | utkusen.com
 Enhanced: Shadow Dev | 2024
 
-CHANGES FROM v2.0:
+CHANGES FROM v2.5:
+- ☁️  Multi-cloud deletion (Google Drive, Dropbox, OneDrive, iCloud, S3, MEGA, Box, etc.)
+- 🌍 12 cloud platforms supported across 3 tiers
+- 🔐 Token revocation after deletion
+- 📊 Cloud deletion statistics
+
+PREVIOUS FEATURES:
 - Multi-pass secure overwrite (DoD 5220.22-M standard)
 - TRUE file deletion (not just encryption)
 - Cross-platform support (Windows, Mac, Linux)
-- Cloud storage destruction
 - Metadata wiping
 - SSD support
 
@@ -88,10 +93,10 @@ print(f'''{Colors.OKCYAN}
 ║   ╚═╝  ╚═╝ ╚══╝╚══╝ ╚═╝╚═╝     ╚══════╝                     ║
 ║                                                               ║
 ║     🔥 TRUE SECURE DELETION SYSTEM 🔥                        ║
-║                 Version 2.5                                   ║
+║                 Version 3.0                                   ║
 ║                                                               ║
 ║   ⚡ House Party Protocol - ENHANCED ⚡                       ║
-║   Multi-Pass Overwrite | Cross-Platform | Cloud Support      ║
+║   Multi-Pass | Cross-Platform | 12 Cloud Platforms           ║
 ║                                                               ║
 ╚═══════════════════════════════════════════════════════════════╝
 {Colors.ENDC}
@@ -486,19 +491,172 @@ def listener_deadman(url, check_interval, grace_period, location, password, pass
 
         sleep(check_interval)
 
+
+def listener_cloud(platforms_str=None, cloud_all=False):
+    """
+    Cloud deletion mode - delete files from cloud storage platforms
+
+    Args:
+        platforms_str: Comma-separated platform names (e.g., 'google_drive,dropbox')
+        cloud_all: If True, delete from all authenticated platforms
+    """
+    try:
+        from cloud_deletion import CloudDeletionManager, CloudPlatformBase
+        import cloud_deletion
+    except ImportError:
+        print(f"{Colors.FAIL}❌ Cloud deletion module not found. Ensure cloud_deletion.py is in the same directory.{Colors.ENDC}")
+        sys.exit(1)
+
+    print(f"\n{Colors.OKCYAN}{Colors.BOLD}☁️  CLOUD DELETION MODE ☁️{Colors.ENDC}\n")
+
+    manager = CloudDeletionManager()
+
+    # Available platforms
+    available = {
+        'google_drive': ('Google Drive', cloud_deletion.GoogleDriveDeletion),
+        'dropbox': ('Dropbox', cloud_deletion.DropboxDeletion),
+        'onedrive': ('OneDrive', cloud_deletion.OneDriveDeletion),
+        'icloud': ('iCloud', cloud_deletion.iCloudDeletion),
+        's3': ('Amazon S3', cloud_deletion.AmazonS3Deletion),
+        'mega': ('MEGA', cloud_deletion.MEGADeletion),
+        'box': ('Box', cloud_deletion.BoxDeletion),
+        'nextcloud': ('Nextcloud', cloud_deletion.NextcloudDeletion),
+        'pcloud': ('pCloud', cloud_deletion.pCloudDeletion),
+        'b2': ('Backblaze B2', cloud_deletion.BackblazeB2Deletion),
+    }
+
+    # Determine which platforms to use
+    if cloud_all:
+        print(f"{Colors.WARNING}Attempting to authenticate with ALL available platforms...{Colors.ENDC}\n")
+        selected_platforms = list(available.keys())
+    elif platforms_str:
+        selected_platforms = [p.strip() for p in platforms_str.split(',')]
+    else:
+        # Interactive selection
+        print(f"{Colors.OKCYAN}Available Cloud Platforms:{Colors.ENDC}")
+        print(f"\n{Colors.BOLD}Tier 1 (Must Have):{Colors.ENDC}")
+        print("  1. google_drive - Google Drive")
+        print("  2. dropbox - Dropbox")
+        print("  3. onedrive - Microsoft OneDrive")
+        print("  4. icloud - Apple iCloud")
+        print(f"\n{Colors.BOLD}Tier 2 (Should Have):{Colors.ENDC}")
+        print("  5. s3 - Amazon S3")
+        print("  6. mega - MEGA")
+        print("  7. box - Box")
+        print(f"\n{Colors.BOLD}Tier 3 (Nice to Have):{Colors.ENDC}")
+        print("  8. nextcloud - Nextcloud/ownCloud")
+        print("  9. pcloud - pCloud")
+        print("  10. b2 - Backblaze B2")
+        print(f"\n{Colors.WARNING}Enter comma-separated platform names (e.g., google_drive,dropbox){Colors.ENDC}")
+        print(f"{Colors.WARNING}Or press Enter to select interactively:{Colors.ENDC}\n")
+
+        user_input = input("> ").strip()
+        if user_input:
+            selected_platforms = [p.strip() for p in user_input.split(',')]
+        else:
+            print(f"\n{Colors.FAIL}No platforms specified. Exiting.{Colors.ENDC}")
+            sys.exit(0)
+
+    # Authenticate with selected platforms
+    print(f"\n{Colors.OKCYAN}Authenticating with cloud platforms...{Colors.ENDC}\n")
+
+    for platform_key in selected_platforms:
+        if platform_key not in available:
+            print(f"{Colors.WARNING}⚠️  Unknown platform: {platform_key}{Colors.ENDC}")
+            continue
+
+        platform_name, platform_class = available[platform_key]
+
+        try:
+            print(f"{Colors.OKCYAN}Connecting to {platform_name}...{Colors.ENDC}")
+
+            # Initialize platform
+            if platform_key == 'google_drive':
+                platform = platform_class()
+            elif platform_key == 'dropbox':
+                platform = platform_class()
+            elif platform_key == 'onedrive':
+                platform = platform_class()
+            elif platform_key == 'icloud':
+                platform = platform_class()
+            elif platform_key == 's3':
+                platform = platform_class()
+            elif platform_key == 'mega':
+                platform = platform_class()
+            elif platform_key == 'box':
+                platform = platform_class()
+            elif platform_key == 'nextcloud':
+                platform = platform_class()
+            elif platform_key == 'pcloud':
+                platform = platform_class()
+            elif platform_key == 'b2':
+                platform = platform_class()
+            else:
+                continue
+
+            # Authenticate
+            if manager.add_platform(platform_key, platform):
+                print(f"{Colors.OKGREEN}✓ {platform_name} authenticated{Colors.ENDC}")
+            else:
+                print(f"{Colors.FAIL}❌ {platform_name} authentication failed{Colors.ENDC}")
+
+        except Exception as e:
+            print(f"{Colors.FAIL}❌ Error with {platform_name}: {e}{Colors.ENDC}")
+
+    # Show summary
+    if not manager.active_platforms:
+        print(f"\n{Colors.FAIL}❌ No platforms authenticated. Exiting.{Colors.ENDC}")
+        sys.exit(1)
+
+    print(manager.get_summary())
+
+    # Confirm deletion
+    print(f"\n{Colors.WARNING}{Colors.BOLD}⚠️  WARNING: This will PERMANENTLY delete files from cloud storage!{Colors.ENDC}")
+    print(f"{Colors.WARNING}Cloud files CANNOT be recovered after deletion.{Colors.ENDC}\n")
+
+    confirmation = input(f"Type {Colors.BOLD}DESTROY{Colors.ENDC} to confirm cloud deletion: ")
+    if confirmation != "DESTROY":
+        print(f"{Colors.WARNING}Cloud deletion cancelled.{Colors.ENDC}")
+        sys.exit(0)
+
+    # Execute deletion
+    results = manager.delete_all(confirm=False)  # Already confirmed above
+
+    # Show results
+    print(f"\n{Colors.OKCYAN}{Colors.BOLD}═══════════════════════════════════════{Colors.ENDC}")
+    print(f"{Colors.OKCYAN}{Colors.BOLD}     CLOUD DELETION COMPLETE{Colors.ENDC}")
+    print(f"{Colors.OKCYAN}{Colors.BOLD}═══════════════════════════════════════{Colors.ENDC}\n")
+
+    total_deleted = 0
+    total_failed = 0
+
+    for platform_name, (deleted, failed) in results.items():
+        total_deleted += deleted
+        total_failed += failed
+        platform_display = available.get(platform_name, (platform_name, None))[0]
+        print(f"  {platform_display}: {Colors.OKGREEN}{deleted} deleted{Colors.ENDC}, {Colors.FAIL}{failed} failed{Colors.ENDC}")
+
+    print(f"\n{Colors.BOLD}Total: {Colors.OKGREEN}{total_deleted} deleted{Colors.ENDC}, {Colors.FAIL}{total_failed} failed{Colors.ENDC}\n")
+
+    if total_deleted > 0:
+        print(f"{Colors.OKGREEN}✓ Cloud deletion completed successfully!{Colors.ENDC}")
+    else:
+        print(f"{Colors.WARNING}⚠️  No files were deleted.{Colors.ENDC}")
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
-        description='RWIPE v2.5 - TRUE Secure Deletion System',
+        description='RWIPE v3.0 - TRUE Secure Deletion System + Multi-Cloud Support',
         epilog='Use responsibly. For authorized data protection only.'
     )
 
     # Required arguments
     parser.add_argument('-d', '--directory', action='store', dest='location',
-                        help='Directory to be destroyed', required=True)
+                        help='Directory to be destroyed (not required for cloud mode)', required=False)
     parser.add_argument('-m', '--mode', action='store', dest='mode',
-                        help="Mode: 'local', 'remote', or 'deadman'", required=True)
+                        help="Mode: 'local', 'remote', 'deadman', or 'cloud'", required=True)
     parser.add_argument('-p', '--password', action='store', dest='password',
-                        help='Password for key derivation', required=True)
+                        help='Password for key derivation (not required for cloud mode)', required=False)
 
     # Optional arguments
     parser.add_argument('-u', '--url', action='store', dest='url',
@@ -522,19 +680,32 @@ if __name__ == '__main__':
     parser.add_argument('--no-confirm', action='store_true',
                         help='Skip confirmation prompt (dangerous!)')
 
+    # Cloud-specific arguments
+    parser.add_argument('--cloud-platforms', action='store', dest='cloud_platforms',
+                        help='Comma-separated list of cloud platforms (e.g., google_drive,dropbox,onedrive)',
+                        required=False)
+    parser.add_argument('--cloud-all', action='store_true', dest='cloud_all',
+                        help='Delete from ALL authenticated cloud platforms')
+
     argv = parser.parse_args()
 
     # Setup logging
     setup_logging(argv.verbose)
 
-    # Validate directory
-    if not os.path.exists(argv.location):
-        print(f"{Colors.FAIL}❌ Error: Directory does not exist: {argv.location}{Colors.ENDC}")
-        sys.exit(1)
-
-    if not os.path.isdir(argv.location):
-        print(f"{Colors.FAIL}❌ Error: Path is not a directory: {argv.location}{Colors.ENDC}")
-        sys.exit(1)
+    # Validate directory (not required for cloud mode)
+    if argv.mode != 'cloud':
+        if not argv.location:
+            print(f"{Colors.FAIL}❌ Error: Directory (-d) is required for {argv.mode} mode{Colors.ENDC}")
+            sys.exit(1)
+        if not os.path.exists(argv.location):
+            print(f"{Colors.FAIL}❌ Error: Directory does not exist: {argv.location}{Colors.ENDC}")
+            sys.exit(1)
+        if not os.path.isdir(argv.location):
+            print(f"{Colors.FAIL}❌ Error: Path is not a directory: {argv.location}{Colors.ENDC}")
+            sys.exit(1)
+        if not argv.password:
+            print(f"{Colors.FAIL}❌ Error: Password (-p) is required for {argv.mode} mode{Colors.ENDC}")
+            sys.exit(1)
 
     # Warning for method
     if argv.method == 'encrypt':
@@ -560,9 +731,12 @@ if __name__ == '__main__':
             listener_deadman(argv.url, argv.interval, argv.grace_period,
                            argv.location, argv.password, argv.passes, argv.method)
 
+        elif argv.mode == 'cloud':
+            listener_cloud(argv.cloud_platforms, argv.cloud_all)
+
         else:
             print(f"{Colors.FAIL}❌ Invalid mode: {argv.mode}{Colors.ENDC}")
-            print(f"{Colors.WARNING}Valid modes: local, remote, deadman{Colors.ENDC}")
+            print(f"{Colors.WARNING}Valid modes: local, remote, deadman, cloud{Colors.ENDC}")
             sys.exit(1)
 
     except KeyboardInterrupt:
