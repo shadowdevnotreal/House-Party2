@@ -1,6 +1,6 @@
 # 🛡️ RWIPE - Emergency Evidence Protection System
 
-![House Party Protocol](https://via.placeholder.com/800x400/1a1a1a/00ff00?text=House+Party+Protocol+-+Add+Iron+Man+3+Image+Here)
+![House Party Protocol](houseparty.jpg)
 
 > *"Sometimes you gotta run before you can walk."* - Tony Stark
 
@@ -450,9 +450,7 @@ If you find this tool useful, consider supporting the development:
 
 <div align="center">
 
-<a href="https://www.buymeacoffee.com/diatasso" target="_blank">
-  <img src="https://cdn.buymeacoffee.com/buttons/v2/default-cyan.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" >
-</a>
+[![Buy Me A Coffee](https://cdn.buymeacoffee.com/buttons/v2/default-cyan.png)](https://www.buymeacoffee.com/diatasso)
 
 **Your support helps maintain and improve this project!**
 
