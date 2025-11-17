@@ -2,6 +2,94 @@
 
 All notable changes to RWIPE - Emergency Evidence Protection System.
 
+## [3.0.0] - 2025-11-17
+
+### 🌍 MAJOR: Multi-Cloud Platform Support
+- **☁️  12 Cloud Platforms Supported** across 3 tiers
+- Permanent deletion from cloud storage (Google Drive, Dropbox, OneDrive, iCloud, S3, MEGA, Box, Nextcloud, pCloud, B2)
+- Token revocation after deletion for maximum security
+- Interactive and automated cloud platform selection
+- Cloud deletion statistics and reporting
+
+### ☁️  Tier 1 Cloud Platforms (Must Have)
+- **Google Drive** - OAuth 2.0, permanent deletion API
+- **Dropbox** - Permanent delete (bypass trash)
+- **Microsoft OneDrive** - Microsoft Graph API integration
+- **Apple iCloud** - 2FA support, iCloud Drive deletion
+
+### ☁️  Tier 2 Cloud Platforms (Should Have)
+- **Amazon S3** - AWS SDK integration, bucket deletion
+- **MEGA** - End-to-end encrypted cloud storage
+- **Box** - Enterprise cloud storage deletion
+
+### ☁️  Tier 3 Cloud Platforms (Nice to Have)
+- **Nextcloud/ownCloud** - Self-hosted WebDAV support
+- **pCloud** - European GDPR-compliant storage
+- **Backblaze B2** - S3-compatible API
+
+### 🔐 Cloud Security Features
+- OAuth 2.0 authentication for major platforms
+- Automatic token revocation after deletion
+- Support for 2FA (iCloud, Google)
+- Credential file management (.gitignore protected)
+- Platform-specific error handling
+
+### 🛠️ New Cloud Mode
+```bash
+# Cloud deletion mode
+python3 rwipe.py -m cloud --cloud-platforms google_drive,dropbox
+python3 rwipe.py -m cloud --cloud-all  # Delete from ALL platforms
+```
+
+### 📊 Enhanced Features
+- Cloud deletion statistics (deleted/failed counts per platform)
+- Interactive platform selection
+- Comprehensive error messages for cloud authentication
+- Repository analytics (Repobeats integration)
+
+### 📦 Dependencies Added
+**Tier 1 Libraries:**
+- `onedrivesdk>=2.0.0` - Microsoft OneDrive
+- `msal>=1.24.0` - Microsoft authentication
+- `pyicloud>=1.0.0` - Apple iCloud
+
+**Tier 2 Libraries:**
+- `mega.py>=1.0.8` - MEGA cloud storage
+- `boxsdk>=3.9.0` - Box cloud storage
+
+**Tier 3 Libraries:**
+- `webdavclient3>=3.14.6` - Nextcloud/ownCloud
+- `pcloud>=1.0a9` - pCloud storage
+- `b2sdk>=1.24.0` - Backblaze B2
+
+**Optional:**
+- `qrcode>=7.4.2` - QR code generation
+- `pillow>=10.0.0` - Image processing
+
+### 🆕 New Files
+- **cloud_deletion.py** (1,200+ lines) - Comprehensive cloud platform integration module
+  - Base class for cloud platforms
+  - 10 cloud platform implementations
+  - CloudDeletionManager for multi-platform operations
+  - Detailed error handling and logging
+
+### 📈 Repository Analytics
+- Repobeats analytics integration for repository insights
+- Activity tracking and contribution visualization
+
+### 🔄 Breaking Changes
+- Cloud mode (`-m cloud`) is now available
+- Directory (`-d`) and password (`-p`) are optional for cloud mode
+- New cloud-specific arguments: `--cloud-platforms`, `--cloud-all`
+
+### 📝 Documentation Updates
+- README updated with cloud platform support
+- SECURITY.md updated with cloud security considerations
+- CONTRIBUTING.md clarified cloud integration guidelines
+- Version updated to 3.0 throughout
+
+---
+
 ## [2.0.0] - 2024-11-17
 
 ### 🚨 CRITICAL: Permanent Destruction System

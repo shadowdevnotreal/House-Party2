@@ -10,36 +10,61 @@
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-3776AB?style=flat&logo=python&logoColor=white)](https://www.python.org/downloads/)
 [![License](https://img.shields.io/badge/license-Educational_Use-FF6B6B?style=flat&logo=open-source-initiative&logoColor=white)](LICENSE)
-[![Version](https://img.shields.io/badge/version-2.0-00D9FF?style=flat&logo=semver&logoColor=white)](https://github.com/shadowdevnotreal/House-Party2)
+[![Version](https://img.shields.io/badge/version-3.0-00D9FF?style=flat&logo=semver&logoColor=white)](https://github.com/shadowdevnotreal/House-Party2)
 [![Encryption](https://img.shields.io/badge/encryption-AES--256-00D9FF?style=flat&logo=lock&logoColor=white)](https://github.com/shadowdevnotreal/House-Party2)
+[![Cloud Platforms](https://img.shields.io/badge/cloud_platforms-12-00D9FF?style=flat&logo=icloud&logoColor=white)](https://github.com/shadowdevnotreal/House-Party2)
+
+[![Google Drive](https://img.shields.io/badge/☁️_Google_Drive-supported-4285F4?style=flat&logo=googledrive&logoColor=white)](#)
+[![Dropbox](https://img.shields.io/badge/☁️_Dropbox-supported-0061FF?style=flat&logo=dropbox&logoColor=white)](#)
+[![OneDrive](https://img.shields.io/badge/☁️_OneDrive-supported-0078D4?style=flat&logo=microsoftonedrive&logoColor=white)](#)
+[![iCloud](https://img.shields.io/badge/☁️_iCloud-supported-3693F3?style=flat&logo=icloud&logoColor=white)](#)
+[![Amazon S3](https://img.shields.io/badge/☁️_S3-supported-FF9900?style=flat&logo=amazons3&logoColor=white)](#)
+[![MEGA](https://img.shields.io/badge/☁️_MEGA-supported-D9272E?style=flat&logo=mega&logoColor=white)](#)
 
 [![Buy Me A Coffee](https://img.shields.io/badge/Buy_Me_A_Coffee-Support_Development-00D9FF?style=for-the-badge&logo=buy-me-a-coffee&logoColor=white&labelColor=1a1a1a)](https://www.buymeacoffee.com/diatasso)
 
 </div>
 
+## 📊 Repository Analytics
+
+![Repobeats Analytics](https://repobeats.axiom.co/api/embed/7a352522622ca9108c96a42ac637c5575fc6eb45.svg "Repobeats analytics image")
+
 ---
 
-## ⚡ Version 2.0 - What's New
+## ⚡ Version 3.0 - What's New
 
-This is a complete refactoring and modernization of the original [House Party Protocol](https://github.com/shadowdevnotreal/house-party-py) project, featuring:
+This is a complete refactoring and modernization of the original [House Party Protocol](https://github.com/shadowdevnotreal/house-party-py) project, now with **multi-cloud platform support**!
 
-### 🆕 New Features
+### 🌍 NEW: Multi-Cloud Platform Support
+- **☁️  12 Cloud Platforms Supported** - Delete from Google Drive, Dropbox, OneDrive, iCloud, S3, MEGA, Box, Nextcloud, pCloud, Backblaze B2
+- **3 Tiers of Cloud Integration** - Must Have, Should Have, Nice to Have
+- **OAuth 2.0 Authentication** - Secure authentication with major cloud providers
+- **Token Revocation** - Automatically revoke access tokens after deletion
+- **Interactive Selection** - Choose platforms interactively or via command line
+- **Cloud Deletion Statistics** - Track deleted/failed files per platform
+
+### 🆕 Enhanced Features
 - **☠️ Dead Man Switch Mode**: Activate if no "alive" signal received within grace period
 - **🎨 Color-Coded Output**: Terminal colors matching project theme for better UX
 - **📦 Auto-Dependency Installation**: Automatically installs missing packages
-- **✅ Safety Confirmations**: Must type 'DESTROY' to confirm encryption
+- **✅ Safety Confirmations**: Must type 'DESTROY' to confirm deletion
 - **📊 Enhanced Logging**: Verbose mode with detailed operation logs
-- **📈 Progress Tracking**: File count and encryption success/failure reporting
+- **📈 Progress Tracking**: File count and deletion success/failure reporting
+- **🔄 DoD 5220.22-M Standard**: Multi-pass secure overwrite (v2.5+)
+- **🖥️  Cross-Platform**: Windows, Mac, Linux support (v2.5+)
 
 ### 🔐 Security Features
+- **TRUE Secure Deletion**: Multi-pass overwrite + encrypt + delete (not just encryption!)
 - **Military-Grade Encryption**: PBKDF2 key derivation with 1,000,000 iterations + AES-256-CBC
 - **Cryptographically Secure RNG**: Using `get_random_bytes()` for all random data
 - **Enhanced Error Handling**: Comprehensive validation and informative error messages
+- **Forensically Secure**: Original data CANNOT be recovered
 
 ### ⚙️ Operational Modes
 - **🎯 Local Mode**: Manual trigger via keyboard input
 - **📡 Remote Mode**: Automated trigger via HTTP endpoint monitoring
-- **☠️ Dead Man Switch**: Activate if check-in missed (NEW!)
+- **☠️ Dead Man Switch**: Activate if check-in missed
+- **☁️  Cloud Mode**: Delete files from cloud storage platforms (NEW!)
 
 ---
 
@@ -288,6 +313,109 @@ if (isset($_POST['checkin'])) {
 
 ---
 
+### ☁️  Cloud Mode (NEW in v3.0!)
+
+The newest mode - **permanently delete files from cloud storage platforms**. Supports 12 cloud platforms across 3 tiers.
+
+```bash
+# Delete from specific cloud platforms
+python3 rwipe.py -m cloud --cloud-platforms google_drive,dropbox
+
+# Delete from ALL authenticated platforms
+python3 rwipe.py -m cloud --cloud-all
+```
+
+**Supported Cloud Platforms:**
+
+**Tier 1 (Must Have):**
+- ☁️  **Google Drive** - OAuth 2.0, permanent deletion API
+- ☁️  **Dropbox** - Permanent delete (bypass trash)
+- ☁️  **Microsoft OneDrive** - Microsoft Graph API
+- ☁️  **Apple iCloud** - 2FA support, iCloud Drive deletion
+
+**Tier 2 (Should Have):**
+- ☁️  **Amazon S3** - AWS SDK, bucket deletion
+- ☁️  **MEGA** - End-to-end encrypted storage
+- ☁️  **Box** - Enterprise cloud storage
+
+**Tier 3 (Nice to Have):**
+- ☁️  **Nextcloud/ownCloud** - Self-hosted WebDAV
+- ☁️  **pCloud** - European GDPR-compliant
+- ☁️  **Backblaze B2** - S3-compatible API
+
+**Parameters:**
+- `-m, --mode` : Operating mode = `cloud` (required)
+- `--cloud-platforms` : Comma-separated platform names (optional)
+- `--cloud-all` : Delete from ALL authenticated platforms (optional)
+
+**Interactive Example:**
+```bash
+python3 rwipe.py -m cloud
+# Prompts for platform selection
+# Shows authentication status
+# Requires typing 'DESTROY' to confirm
+```
+
+**Automated Example:**
+```bash
+# Delete from Google Drive and Dropbox
+python3 rwipe.py -m cloud --cloud-platforms google_drive,dropbox
+
+# Delete from all platforms
+python3 rwipe.py -m cloud --cloud-all
+```
+
+**How It Works:**
+
+1. **Authentication**: OAuth 2.0 or API key authentication for each platform
+2. **File Listing**: Retrieves all files from selected platforms
+3. **Confirmation**: Requires typing 'DESTROY' to prevent accidents
+4. **Deletion**: Permanently deletes files (bypasses trash/recycle bin)
+5. **Token Revocation**: Automatically revokes access tokens for security
+6. **Statistics**: Shows deleted/failed counts per platform
+
+**Environment Variables for Authentication:**
+```bash
+# Dropbox
+export DROPBOX_ACCESS_TOKEN="your_token_here"
+
+# iCloud
+export ICLOUD_USERNAME="your_email"
+export ICLOUD_PASSWORD="your_password"
+
+# MEGA
+export MEGA_EMAIL="your_email"
+export MEGA_PASSWORD="your_password"
+
+# Amazon S3
+export AWS_BUCKET_NAME="your_bucket"
+# Configure: aws configure
+
+# Nextcloud
+export NEXTCLOUD_URL="https://cloud.example.com/remote.php/dav"
+export NEXTCLOUD_USERNAME="your_username"
+export NEXTCLOUD_PASSWORD="your_password"
+```
+
+**Credential Files:**
+- **Google Drive**: `google_credentials.json` (from Google Cloud Console)
+- **OneDrive**: `onedrive_credentials.json` (Microsoft App Registration)
+- **Box**: `box_config.json` (Box Developer Console)
+
+**Use Cases:**
+- Delete evidence from cloud backups
+- Remove files from multiple platforms simultaneously
+- Emergency cloud data destruction
+- Whistleblower cloud cleanup
+
+**⚠️  WARNING:**
+- Cloud files are **PERMANENTLY DELETED** (cannot be recovered)
+- Unlike local files, cloud deletion does NOT support multi-pass overwrite (cloud providers control physical storage)
+- Authentication tokens are revoked after deletion
+- Ensure you have correct credentials before running
+
+---
+
 ## 🔍 How It Works
 
 ### Encryption Process
@@ -305,13 +433,16 @@ if (isset($_POST['checkin'])) {
 
 ### Mode Comparison
 
-| Feature | Local | Remote | Dead Man Switch |
-|---------|-------|--------|-----------------|
-| **Trigger** | Manual (keyboard) | URL contains "start" | URL missing "alive" |
-| **Confirmation** | Required (type 'DESTROY') | Auto-activates | Auto-activates |
-| **Network** | Not required | Required | Required |
-| **Use Case** | Immediate control | Remote activation | Automatic protection |
-| **Grace Period** | N/A | Instant | Configurable (-g) |
+| Feature | Local | Remote | Dead Man Switch | Cloud |
+|---------|-------|--------|-----------------|-------|
+| **Trigger** | Manual (keyboard) | URL contains "start" | URL missing "alive" | Manual |
+| **Target** | Local files | Local files | Local files | Cloud storage |
+| **Confirmation** | Required (type 'DESTROY') | Auto-activates | Auto-activates | Required (type 'DESTROY') |
+| **Network** | Not required | Required | Required | Required |
+| **Authentication** | N/A | N/A | N/A | OAuth 2.0/API keys |
+| **Use Case** | Immediate control | Remote activation | Automatic protection | Cloud deletion |
+| **Grace Period** | N/A | Instant | Configurable (-g) | N/A |
+| **Platforms** | Windows/Mac/Linux | Windows/Mac/Linux | Windows/Mac/Linux | 12 cloud platforms |
 
 ---
 
