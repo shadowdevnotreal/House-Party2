@@ -6,16 +6,41 @@
 
 **RWIPE** is an advanced file encryption tool designed for emergency data protection scenarios. Inspired by the "House Party Protocol" from Iron Man 3, where Tony Stark activates his entire legion of Iron Man suits in a moment of crisis, this tool provides a similar emergency response for your sensitive data.
 
+<div align="center">
+
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![License](https://img.shields.io/badge/license-Educational%20Use-red.svg)](LICENSE)
+[![Version](https://img.shields.io/badge/version-2.0-cyan.svg)](https://github.com/shadowdevnotreal/House-Party2)
+
+<a href="https://www.buymeacoffee.com/diatasso" target="_blank">
+  <img src="https://img.shields.io/badge/Buy%20Me%20A%20Coffee-Support%20Development-00D9FF?style=for-the-badge&logo=buy-me-a-coffee&logoColor=white" alt="Buy Me A Coffee" />
+</a>
+
+</div>
+
+---
+
 ## ⚡ Version 2.0 - What's New
 
 This is a complete refactoring and modernization of the original [House Party Protocol](https://github.com/shadowdevnotreal/house-party-py) project, featuring:
 
-- **🔐 Military-Grade Encryption**: PBKDF2 key derivation with 1,000,000 iterations + AES-256-CBC
-- **🎯 Dual Operation Modes**: Local manual trigger OR remote command-and-control
-- **🛡️ Enhanced Security**: Cryptographically secure random number generation
-- **⚙️ Better Error Handling**: Comprehensive validation and informative error messages
-- **🚀 Modern Architecture**: Updated dependencies and Python 3.10+ support
-- **📦 Improved UX**: Clear status messages and progress tracking
+### 🆕 New Features
+- **☠️ Dead Man Switch Mode**: Activate if no "alive" signal received within grace period
+- **🎨 Color-Coded Output**: Terminal colors matching project theme for better UX
+- **📦 Auto-Dependency Installation**: Automatically installs missing packages
+- **✅ Safety Confirmations**: Must type 'DESTROY' to confirm encryption
+- **📊 Enhanced Logging**: Verbose mode with detailed operation logs
+- **📈 Progress Tracking**: File count and encryption success/failure reporting
+
+### 🔐 Security Features
+- **Military-Grade Encryption**: PBKDF2 key derivation with 1,000,000 iterations + AES-256-CBC
+- **Cryptographically Secure RNG**: Using `get_random_bytes()` for all random data
+- **Enhanced Error Handling**: Comprehensive validation and informative error messages
+
+### ⚙️ Operational Modes
+- **🎯 Local Mode**: Manual trigger via keyboard input
+- **📡 Remote Mode**: Automated trigger via HTTP endpoint monitoring
+- **☠️ Dead Man Switch**: Activate if check-in missed (NEW!)
 
 ---
 
@@ -26,12 +51,13 @@ This is a complete refactoring and modernization of the original [House Party Pr
 - [Usage](#-usage)
   - [Local Mode](#local-mode)
   - [Remote Mode](#remote-mode)
+  - [Dead Man Switch Mode](#dead-man-switch-mode-new)
 - [How It Works](#-how-it-works)
 - [Security Details](#-security-details)
 - [Comparison with Original](#-comparison-with-original)
 - [Legal Warning](#-legal-warning)
 - [Attribution](#-attribution)
-- [License](#-license)
+- [Support](#-support)
 
 ---
 
@@ -41,9 +67,10 @@ This is a complete refactoring and modernization of the original [House Party Pr
 - **AES-256 Encryption**: Military-grade encryption using 256-bit AES in CBC mode
 - **PBKDF2 Key Derivation**: Password-based keys with 1 million iterations (NIST recommended)
 - **Recursive Directory Encryption**: Encrypts all files in target directory and subdirectories
-- **Two Operating Modes**:
+- **Three Operating Modes**:
   - **Local Mode**: Manual activation via keyboard input
   - **Remote Mode**: Automated trigger via HTTP endpoint monitoring
+  - **Dead Man Switch**: Activate if no alive signal within grace period
 
 ### Security Enhancements
 - ✅ Cryptographically secure random IV generation
@@ -51,35 +78,44 @@ This is a complete refactoring and modernization of the original [House Party Pr
 - ✅ No key reuse (unique encryption per session)
 - ✅ Password-based authentication
 - ✅ Timeout protection on remote requests
+- ✅ Confirmation prompts to prevent accidents
 
 ### Operational Features
+- ✅ Auto-dependency installation
 - ✅ Directory existence validation
 - ✅ Comprehensive error handling
-- ✅ Real-time progress updates
+- ✅ Real-time progress updates with colors
 - ✅ Clean exit codes for scripting
-- ✅ Detailed help documentation
+- ✅ Verbose logging mode
+- ✅ File count and success/failure tracking
+- ✅ Keyboard interrupt handling (Ctrl+C)
 
 ---
 
 ## 🔧 Installation
 
-### Prerequisites
-- Python 3.10 or higher
-- pip package manager
-
-### Install Dependencies
-
-```bash
-pip install pycryptodome requests
-```
-
-### Download
+### Quick Install
 
 ```bash
 git clone https://github.com/shadowdevnotreal/House-Party2.git
 cd House-Party2
-chmod +x rwipe.py
+python3 rwipe.py --help
 ```
+
+**That's it!** Dependencies auto-install on first run.
+
+### Manual Installation
+
+If you prefer to install dependencies manually:
+
+```bash
+pip install -r requirements.txt
+```
+
+### Prerequisites
+- Python 3.10 or higher
+- pip package manager
+- Internet connection (for auto-install or remote modes)
 
 ---
 
@@ -94,19 +130,41 @@ python3 rwipe.py -d /path/to/directory -m local -p YourStrongPassword123
 ```
 
 **Parameters:**
-- `-d` : Target directory to encrypt (required)
-- `-m` : Operating mode = `local` (required)
-- `-p` : Password for key derivation (required)
+- `-d, --directory` : Target directory to encrypt (required)
+- `-m, --mode` : Operating mode = `local` (required)
+- `-p, --password` : Password for key derivation (required)
+- `-v, --verbose` : Enable verbose logging (optional)
 
 **Example:**
 ```bash
-python3 rwipe.py -d /home/user/sensitive_docs -m local -p MySecurePass2024!
+python3 rwipe.py -d /home/user/sensitive_docs -m local -p MySecurePass2024! -v
 ```
 
 **Activation:**
 1. Run the command
-2. Press `Y` and hit Enter when ready to activate
-3. All files will be encrypted immediately
+2. Review the file count warning
+3. Type `DESTROY` to confirm (safety feature)
+4. Press `Y` and hit Enter when ready to activate
+5. All files will be encrypted immediately
+
+**Output:**
+```
+🎯 Local Mode Active
+Press 'Y' and Enter to start action.
+
+> Y
+
+⚠️  WARNING: This will encrypt 42 files in: /home/user/sensitive_docs
+⚠️  This action is IRREVERSIBLE without the password!
+
+Type 'DESTROY' to confirm: DESTROY
+
+🔐 Starting encryption process...
+
+✓ /home/user/sensitive_docs/file1.txt
+✓ /home/user/sensitive_docs/file2.pdf
+...
+```
 
 ---
 
@@ -119,11 +177,12 @@ python3 rwipe.py -d /path/to/directory -u https://your-server.com/trigger.txt -i
 ```
 
 **Parameters:**
-- `-d` : Target directory to encrypt (required)
-- `-u` : URL to monitor for trigger command (required for remote)
-- `-i` : Check interval in seconds (required for remote)
-- `-m` : Operating mode = `remote` (required)
-- `-p` : Password for key derivation (required)
+- `-d, --directory` : Target directory to encrypt (required)
+- `-u, --url` : URL to monitor for trigger command (required)
+- `-i, --interval` : Check interval in seconds (default: 60)
+- `-m, --mode` : Operating mode = `remote` (required)
+- `-p, --password` : Password for key derivation (required)
+- `-v, --verbose` : Enable verbose logging (optional)
 
 **Example:**
 ```bash
@@ -154,30 +213,106 @@ if (isset($_POST["password"]) && $_POST["password"] === $password) {
 
 ---
 
+### Dead Man Switch Mode (NEW!)
+
+The most advanced mode - activates encryption if you DON'T check in regularly. Perfect for scenarios where you need automatic protection if something happens to you.
+
+```bash
+python3 rwipe.py -d /path/to/directory -u https://your-server.com/alive.txt -i 30 -g 300 -m deadman -p YourStrongPassword123
+```
+
+**Parameters:**
+- `-d, --directory` : Target directory to encrypt (required)
+- `-u, --url` : URL to check for alive signal (required)
+- `-i, --interval` : How often to check for signal in seconds (default: 60)
+- `-g, --grace` : Grace period before activation in seconds (default: 300)
+- `-m, --mode` : Operating mode = `deadman` (required)
+- `-p, --password` : Password for key derivation (required)
+- `-v, --verbose` : Enable verbose logging (optional)
+
+**Example:**
+```bash
+python3 rwipe.py -d /home/user/critical_data -u https://example.com/alive.txt -i 60 -g 600 -m deadman -p MySecurePass2024!
+```
+
+**How It Works:**
+
+1. **Setup**: Create a text file on your server that contains the word "alive"
+2. **Check-In**: RWIPE checks this URL every `-i` seconds
+3. **Grace Period**: If "alive" is not found, a countdown begins (-g seconds)
+4. **Activation**: If no "alive" signal within grace period, encryption activates
+
+**Dead Man Switch PHP Example:**
+```php
+<?php
+// alive.php - You must visit this page regularly to prevent activation
+session_start();
+
+if (isset($_POST['checkin'])) {
+    file_put_contents("alive.txt", "alive");
+    $_SESSION['last_checkin'] = time();
+    echo "Check-in successful!";
+} elseif (isset($_POST['disable'])) {
+    file_put_contents("alive.txt", "disabled");
+    echo "Dead man switch DISABLED";
+} else {
+    ?>
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Dead Man Switch - Check In</title>
+        <meta http-equiv="refresh" content="60">
+    </head>
+    <body>
+        <h1>Dead Man Switch Control</h1>
+        <p>Last check-in: <?php echo isset($_SESSION['last_checkin']) ? date('Y-m-d H:i:s', $_SESSION['last_checkin']) : 'Never'; ?></p>
+
+        <form method="post">
+            <button type="submit" name="checkin">I'M ALIVE - Check In</button>
+        </form>
+
+        <form method="post">
+            <button type="submit" name="disable">DISABLE Switch</button>
+        </form>
+    </body>
+    </html>
+    <?php
+}
+?>
+```
+
+**Use Cases:**
+- Journalist/activist protection if detained
+- Whistleblower data protection
+- Emergency medical situations
+- High-risk travel scenarios
+
+---
+
 ## 🔍 How It Works
 
 ### Encryption Process
 
-1. **Key Derivation**: Your password is processed through PBKDF2 with a random salt and 1,000,000 iterations to create a 256-bit encryption key
-2. **File Discovery**: The tool recursively walks through all files in the target directory
-3. **Encryption**: Each file is:
+1. **Dependency Check**: Auto-installs `pycryptodome` and `requests` if missing
+2. **Key Derivation**: Your password is processed through PBKDF2 with a random salt and 1,000,000 iterations to create a 256-bit encryption key
+3. **File Discovery**: The tool recursively walks through all files in the target directory
+4. **Confirmation**: In local mode, requires typing 'DESTROY' to prevent accidents
+5. **Encryption**: Each file is:
    - Read into memory
    - Padded to AES block size (16 bytes)
    - Encrypted with AES-256 in CBC mode with a unique random IV
    - Overwritten with encrypted data
-4. **Completion**: Original files are now permanently encrypted and unrecoverable without the password
+6. **Completion**: Original files are now permanently encrypted and unrecoverable without the password
 
-### Mode Differences
+### Mode Comparison
 
-**Local Mode:**
-- Waits for user input ('Y') before activation
-- Immediate execution
-- No network dependencies
-
-**Remote Mode:**
-- Continuously polls specified URL at defined intervals
-- Activates when URL returns HTTP 200 and contains "start"
-- Can be triggered remotely from anywhere
+| Feature | Local | Remote | Dead Man Switch |
+|---------|-------|--------|-----------------|
+| **Trigger** | Manual (keyboard) | URL contains "start" | URL missing "alive" |
+| **Confirmation** | Required (type 'DESTROY') | Auto-activates | Auto-activates |
+| **Network** | Not required | Required | Required |
+| **Use Case** | Immediate control | Remote activation | Automatic protection |
+| **Grace Period** | N/A | Instant | Configurable (-g) |
 
 ---
 
@@ -205,6 +340,10 @@ if (isset($_POST["password"]) && $_POST["password"] === $password) {
 | Error Handling | Minimal | Comprehensive |
 | Input Validation | None | Full validation |
 | HTTP Library | urllib | requests (with timeout) |
+| Confirmation | None | Required (type 'DESTROY') |
+| Logging | None | Optional verbose mode |
+| Auto-Install | No | Yes |
+| Color Output | No | Yes (theme-matched) |
 
 ---
 
@@ -215,11 +354,15 @@ This project is a complete refactoring of the original [house-party-py](https://
 ### Major Improvements
 
 ✅ **Cryptographic Security**: Replaced weak random key generation with industry-standard PBKDF2
-✅ **Dual Modes**: Added local manual trigger mode in addition to remote
+✅ **Triple Modes**: Added local manual trigger + dead man switch in addition to remote
 ✅ **Modern Code**: Updated to Python 3.10+, modern libraries, and best practices
 ✅ **Error Handling**: Comprehensive try-catch blocks and validation
-✅ **User Experience**: Better CLI interface with clear progress and status messages
+✅ **User Experience**: Color-coded CLI interface with clear progress and status messages
+✅ **Safety Features**: Confirmation prompts, file counting, success/failure tracking
+✅ **Auto-Installation**: Dependencies install automatically on first run
 ✅ **Documentation**: Professional README with complete usage examples
+✅ **Logging**: Optional verbose mode for debugging
+✅ **Flexibility**: More command-line options for customization
 
 ### What Stayed the Same
 
@@ -227,6 +370,7 @@ This project is a complete refactoring of the original [house-party-py](https://
 - AES-256 encryption algorithm
 - Recursive directory traversal
 - Remote activation capability via URL monitoring
+- Tony Stark's spirit of emergency protocols
 
 ---
 
@@ -239,6 +383,7 @@ This project is a complete refactoring of the original [house-party-py](https://
 - Protecting personal privacy in case of device seizure in authoritarian regimes
 - Secure data handling in high-risk journalism or activism contexts
 - Emergency response protocols for organizations handling sensitive information
+- Whistleblower protection in life-threatening situations
 
 ### Important Legal Considerations
 
@@ -249,6 +394,7 @@ This project is a complete refactoring of the original [house-party-py](https://
 - Tampering with evidence
 - Contempt of court
 - Destruction of subpoenaed materials
+- Spoliation of evidence
 
 ⚠️ **Civil Consequences**: Evidence destruction can lead to adverse inference in civil litigation, meaning the court may assume the destroyed data was incriminating.
 
@@ -259,6 +405,8 @@ This project is a complete refactoring of the original [house-party-py](https://
 ✅ Whistleblower protection in authoritarian contexts
 ✅ Corporate data breach emergency response
 ✅ Testing and educational purposes
+✅ Journalist source protection in dangerous areas
+✅ Activist data protection from oppressive regimes
 
 ### DO NOT Use For
 
@@ -266,6 +414,8 @@ This project is a complete refactoring of the original [house-party-py](https://
 ❌ Hiding data from legal discovery processes
 ❌ Avoiding lawful search warrants
 ❌ Tampering with evidence in any legal proceeding
+❌ Violating court orders or subpoenas
+❌ Illegal activities of any kind
 
 **USE AT YOUR OWN RISK. The authors are not responsible for any legal consequences of using this tool.**
 
@@ -285,7 +435,7 @@ This project is a complete refactoring of the original [house-party-py](https://
 **RWIPE v2.0**
 - **Refactored & Enhanced By**: Shadow Dev
 - **Year**: 2024
-- **Improvements**: Complete code modernization, enhanced cryptography, dual-mode operation, comprehensive documentation
+- **Improvements**: Complete code modernization, enhanced cryptography, triple-mode operation, dead man switch, auto-installation, comprehensive documentation
 
 ### Inspiration
 The concept and name are inspired by the iconic "House Party Protocol" scene from **Iron Man 3** (2013), where Tony Stark summons his entire legion of Iron Man suits to aid him in battle. Just as Tony had an emergency protocol to deploy all his resources, this tool serves as an emergency protocol to protect your data.
@@ -294,13 +444,19 @@ The concept and name are inspired by the iconic "House Party Protocol" scene fro
 
 ---
 
-## 📄 License
+## 💖 Support
 
-This project maintains the spirit of open-source collaboration.
+If you find this tool useful, consider supporting the development:
 
-**Original Project**: Licensed under GNU General Public License v2.0
+<div align="center">
 
-**This Refactor**: Available for educational and authorized security purposes only. Commercial use requires explicit permission.
+<a href="https://www.buymeacoffee.com/diatasso" target="_blank">
+  <img src="https://cdn.buymeacoffee.com/buttons/v2/default-cyan.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" >
+</a>
+
+**Your support helps maintain and improve this project!**
+
+</div>
 
 ---
 
@@ -314,12 +470,22 @@ Contributions are welcome! If you have ideas for improvements:
 4. Push to the branch (`git push origin feature/improvement`)
 5. Open a Pull Request
 
+**Areas for Contribution:**
+- Additional encryption modes
+- GUI interface
+- Mobile app versions
+- Additional trigger mechanisms
+- Security audits
+- Documentation improvements
+- Language translations
+
 ---
 
 ## 📞 Contact
 
 **Shadow Dev**
 - GitHub: [@shadowdevnotreal](https://github.com/shadowdevnotreal)
+- Support: [Buy Me A Coffee](https://www.buymeacoffee.com/diatasso)
 
 **Original Author - Utku Sen**
 - Website: [utkusen.com](https://utkusen.com)
@@ -331,7 +497,21 @@ Contributions are welcome! If you have ideas for improvements:
 - **Utku Sen (Jani)** - For creating the original House Party Protocol concept
 - **Marvel Studios / Iron Man 3** - For the inspiration and cool protocol name
 - **PyCryptodome Team** - For the excellent cryptography library
-- The open-source security community
+- **Python Community** - For the amazing ecosystem
+- **Open Source Community** - For making security tools accessible
+- **All Contributors** - Thank you for improving this project
+
+---
+
+## 📄 License
+
+This project maintains the spirit of open-source collaboration.
+
+**Original Project**: Licensed under GNU General Public License v2.0
+
+**This Refactor**: Available for educational and authorized security purposes only. Commercial use requires explicit permission.
+
+See repository for full license details.
 
 ---
 
@@ -342,5 +522,11 @@ Contributions are welcome! If you have ideas for improvements:
 *This tool is for protection, not destruction of evidence.*
 
 Made with ⚡ by Shadow Dev | Original concept by Utku Sen
+
+---
+
+![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=flat&logo=python&logoColor=white)
+![Encryption](https://img.shields.io/badge/Encryption-AES--256-00D9FF?style=flat&logo=lock&logoColor=white)
+![Status](https://img.shields.io/badge/Status-Active-00FF00?style=flat)
 
 </div>
