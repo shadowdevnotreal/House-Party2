@@ -8,13 +8,12 @@
 
 <div align="center">
 
-[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
-[![License](https://img.shields.io/badge/license-Educational%20Use-red.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-2.0-cyan.svg)](https://github.com/shadowdevnotreal/House-Party2)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-3776AB?style=flat&logo=python&logoColor=white)](https://www.python.org/downloads/)
+[![License](https://img.shields.io/badge/license-Educational_Use-FF6B6B?style=flat&logo=open-source-initiative&logoColor=white)](LICENSE)
+[![Version](https://img.shields.io/badge/version-2.0-00D9FF?style=flat&logo=semver&logoColor=white)](https://github.com/shadowdevnotreal/House-Party2)
+[![Encryption](https://img.shields.io/badge/encryption-AES--256-00D9FF?style=flat&logo=lock&logoColor=white)](https://github.com/shadowdevnotreal/House-Party2)
 
-<a href="https://www.buymeacoffee.com/diatasso" target="_blank">
-  <img src="https://img.shields.io/badge/Buy%20Me%20A%20Coffee-Support%20Development-00D9FF?style=for-the-badge&logo=buy-me-a-coffee&logoColor=white" alt="Buy Me A Coffee" />
-</a>
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy_Me_A_Coffee-Support_Development-00D9FF?style=for-the-badge&logo=buy-me-a-coffee&logoColor=white&labelColor=1a1a1a)](https://www.buymeacoffee.com/diatasso)
 
 </div>
 
@@ -444,15 +443,25 @@ The concept and name are inspired by the iconic "House Party Protocol" scene fro
 
 ---
 
-## 💖 Support
+## 💖 Support Development
 
-If you find this tool useful, consider supporting the development:
+If RWIPE helps protect your data, consider supporting continued development and maintenance:
 
 <div align="center">
 
-[![Buy Me A Coffee](https://cdn.buymeacoffee.com/buttons/v2/default-cyan.png)](https://www.buymeacoffee.com/diatasso)
+### ☕ Buy Me A Coffee
 
-**Your support helps maintain and improve this project!**
+[![Support via Buy Me A Coffee](https://img.shields.io/badge/Buy_Me_A_Coffee-Support_Development-00D9FF?style=for-the-badge&logo=buy-me-a-coffee&logoColor=white&labelColor=1a1a1a)](https://www.buymeacoffee.com/diatasso)
+
+**Every coffee helps fuel new features, security updates, and better documentation!**
+
+---
+
+### Other Ways to Support
+
+[![Star this repo](https://img.shields.io/badge/⭐_Star_this_repo-Support_for_free-00D9FF?style=flat&labelColor=1a1a1a)](https://github.com/shadowdevnotreal/House-Party2)
+[![Share on Twitter](https://img.shields.io/badge/Share_on_Twitter-Spread_the_word-00D9FF?style=flat&logo=twitter&logoColor=white&labelColor=1a1a1a)](https://twitter.com/intent/tweet?text=Check%20out%20RWIPE%20v2.0%20-%20Emergency%20Evidence%20Protection%20System%20with%20Dead%20Man%20Switch!&url=https://github.com/shadowdevnotreal/House-Party2)
+[![Report Issues](https://img.shields.io/badge/Report_Issues-Help_improve-00D9FF?style=flat&logo=github&logoColor=white&labelColor=1a1a1a)](https://github.com/shadowdevnotreal/House-Party2/issues)
 
 </div>
 
@@ -482,11 +491,13 @@ Contributions are welcome! If you have ideas for improvements:
 ## 📞 Contact
 
 **Shadow Dev**
-- GitHub: [@shadowdevnotreal](https://github.com/shadowdevnotreal)
-- Support: [Buy Me A Coffee](https://www.buymeacoffee.com/diatasso)
+- 💻 GitHub: [@shadowdevnotreal](https://github.com/shadowdevnotreal)
+- ☕ Support: [![Buy Me A Coffee](https://img.shields.io/badge/Buy_Me_A_Coffee-diatasso-00D9FF?style=flat&logo=buy-me-a-coffee&logoColor=white)](https://www.buymeacoffee.com/diatasso)
+- 📧 Issues: [Report bugs or request features](https://github.com/shadowdevnotreal/House-Party2/issues)
 
 **Original Author - Utku Sen**
-- Website: [utkusen.com](https://utkusen.com)
+- 🌐 Website: [utkusen.com](https://utkusen.com)
+- 📦 Original Repo: [house-party-py](https://github.com/shadowdevnotreal/house-party-py)
 
 ---
 
@@ -515,16 +526,22 @@ See repository for full license details.
 
 <div align="center">
 
-**Remember: With great power comes great responsibility.**
+---
+
+### ⚡ Remember: With great power comes great responsibility. ⚡
 
 *This tool is for protection, not destruction of evidence.*
 
-Made with ⚡ by Shadow Dev | Original concept by Utku Sen
+**Made with ⚡ by [Shadow Dev](https://github.com/shadowdevnotreal) | Original concept by [Utku Sen](https://utkusen.com)**
 
 ---
 
 ![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=flat&logo=python&logoColor=white)
 ![Encryption](https://img.shields.io/badge/Encryption-AES--256-00D9FF?style=flat&logo=lock&logoColor=white)
-![Status](https://img.shields.io/badge/Status-Active-00FF00?style=flat)
+![Status](https://img.shields.io/badge/Status-Active-00FF00?style=flat&logo=github-actions&logoColor=white)
+![MIT License](https://img.shields.io/badge/License-Educational-FF6B6B?style=flat&logo=open-source-initiative&logoColor=white)
+
+[![GitHub stars](https://img.shields.io/github/stars/shadowdevnotreal/House-Party2?style=social)](https://github.com/shadowdevnotreal/House-Party2)
+[![GitHub forks](https://img.shields.io/github/forks/shadowdevnotreal/House-Party2?style=social)](https://github.com/shadowdevnotreal/House-Party2/fork)
 
 </div>
